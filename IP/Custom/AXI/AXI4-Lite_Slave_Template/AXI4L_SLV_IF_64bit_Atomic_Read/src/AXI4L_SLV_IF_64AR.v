@@ -959,7 +959,7 @@ module AXI4L_SLV_IF_64AR # (
             slv_reg5 <= 0;
             slv_reg6 <= 0;
             slv_reg7 <= 0;
-            slv_reg8 <= 0;       
+            slv_reg8 <= 0;
             slv_reg9 <= 0;
             slv_reg10 <= 0;
             slv_reg11 <= 0;
@@ -3672,7 +3672,7 @@ module AXI4L_SLV_IF_64AR # (
 //  [1] Variable used for Core                                          //
 // ==================================================================== //
     // 1. Variable for Input Registration
-    // # User Guide : Comment the Registers which are Read-Only or Un-Used
+    // # User Guide : Comment the Registers which are Write Registers
     reg [31:0]  reg_64bit_1th_hi;
     reg [31:0]  reg_64bit_1th_lo;
     reg [31:0]  reg_64bit_2th_hi;
@@ -3944,8 +3944,8 @@ module AXI4L_SLV_IF_64AR # (
 // ==================================================================== //
 //  [1] Registration of Input Signals                                   //
 // ==================================================================== //
-    // # User Guide : Comment the Registers which are Read-Only or Un-Used
-    1. 1st 64-bit Register's Upper Part
+    // # User Guide : Comment the Registers which are Write or Un-Used Registers
+    // 1. 1st 64-bit Register's Upper Part
     always @(posedge S_AXI_ACLK) begin
         if(!S_AXI_ARESETN)      reg_64bit_1th_hi <= 0;
         else                    reg_64bit_1th_hi <= i_reg_64bit_1th_hi;
@@ -5494,7 +5494,7 @@ module AXI4L_SLV_IF_64AR # (
     always @(*) begin
         if(S_AXI_ARVALID & ~S_AXI_ARREADY) begin
             case(S_AXI_ARADDR[OPT_MEM_ADDR_BITS+2:2])
-                // # User Guide : Comment the Registers which are Read-Only or Un-Used
+                // # User Guide : Comment the Registers which are Write or Un-Used Registers
                 8'h00   :   upper_flag = 1;
                 8'h02   :   upper_flag = 1;
                 8'h04   :   upper_flag = 1;
@@ -5640,7 +5640,7 @@ module AXI4L_SLV_IF_64AR # (
         end
         else if(upper_flag) begin
             case(S_AXI_ARADDR[OPT_MEM_ADDR_BITS+2:2])
-                // # User Guide : Comment the Registers which are Read-Only or Un-Used
+                // # User Guide : Comment the Registers which are Write or Un-Used Registers
                 8'h00   :   captured_data <= {reg_64bit_1th_hi, reg_64bit_1th_lo};
                 8'h02   :   captured_data <= {reg_64bit_2th_hi, reg_64bit_2th_lo};
                 8'h04   :   captured_data <= {reg_64bit_3th_hi, reg_64bit_3th_lo};
@@ -5779,7 +5779,7 @@ module AXI4L_SLV_IF_64AR # (
 // ==================================================================== //
     always @(*) begin
         case(axi_araddr[OPT_MEM_ADDR_BITS+2:2])
-            // # User Guide : Comment the Registers which are Read-Only or Un-Used
+            // # User Guide : Comment the Registers which are Write or Un-Used Registers
             8'h00   :   slv_reg0 = captured_data[63:32];
             8'h01   :   slv_reg1 = captured_data[31:0];
             8'h02   :   slv_reg2 = captured_data[63:32];
@@ -6037,7 +6037,7 @@ module AXI4L_SLV_IF_64AR # (
             8'hFE   :   slv_reg254 = captured_data[63:32];
             8'hFF   :   slv_reg255 = captured_data[31:0];
             default : begin
-                        // # User Guide : Comment the Registers which are Read-Only or Un-Used
+                        // # User Guide : Comment the Registers which are Write or Un-Used Registers
                         slv_reg0 = 0;
                         slv_reg1 = 0;
                         slv_reg2 = 0;
@@ -6304,7 +6304,7 @@ module AXI4L_SLV_IF_64AR # (
 //                              Output Assignments                              //
 //                                                                              //
 // ============================================================================ //
-    // # User Guide : Uncomment Pins to Use
+    // # User Guide : Un-Comment the Pins which are Connected to Write Registers
     // assign  o_reg_64bit_1th_hi = slv_reg0;
     // assign  o_reg_64bit_1th_lo = slv_reg1;
     // assign  o_reg_64bit_2th_hi = slv_reg2;
